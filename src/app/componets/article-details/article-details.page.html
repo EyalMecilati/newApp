@@ -1,0 +1,30 @@
+<ion-header class="ion-text-center">
+    <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+          </ion-buttons>
+      <ion-title>
+            Article Details
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+<ion-row>
+<ion-col size='12'>
+  <ion-card>
+      <ion-img [src]=selectedArticle.urlToImage alt='news picture'></ion-img>   
+      <ion-card-header>
+          <ion-card-title>
+              <h1 class="ion-text-capitalize">Author: {{selectedArticle.author}}</h1>
+          </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <p>Description: {{selectedArticle.description}}</p>
+      </ion-card-content>
+  </ion-card>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

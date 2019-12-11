@@ -1,14 +1,64 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+<!-- header -->
+<ion-header class="ion-text-center">
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="strat">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Angular-Ionic
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
+
+<!-- Country and Category filter -->
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+    <!-- refresher drag -->
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
+    <ion-grid>
+        <ion-row>
+<!-- Country -->
+            <ion-col size-xl='6' size-md='6' size-sm='12' no-padding >
+                <ion-card>
+                    <ion-item>
+                        <ion-label><ion-icon  padding-end  name="pin" color="primary"></ion-icon>Country</ion-label>
+                        <ion-select interface="popover"  [(ngModel)]="selectedCountry" (ngModelChange)='afterCountryChange()'>
+                            <ion-select-option *ngFor="let country of countrys" [value]='country'>{{country.name}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+<!-- Category -->
+            <ion-col size-xl='6' size-md='6' size-sm='12' no-padding>
+                <ion-card>
+                    <ion-item>
+                        <ion-label><ion-icon  padding-end name="logo-buffer" color="primary"></ion-icon>Category</ion-label>
+                        <ion-select interface="popover"  [(ngModel)]="selectedCategory" (ngModelChange)='afterCategoryChange()'>
+                            <ion-select-option *ngFor="let category of categorys" [value]='category.id'>{{category.name}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+<!-- articles cards -->
+            <ion-col *ngFor="let article of articles_" size='12' size-sm="6" size-md="4" size-xl="4">
+                <ion-card *ngIf="!spinnerChecker">
+                    <ion-img [src]=article.urlToImage alt='news picture'></ion-img>   
+                    <ion-card-header>
+                        <ion-card-title>
+                            <h1 class="ion-text-capitalize">Author: {{article.author}}</h1>
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p>Description: {{article.description}}</p>
+                        <ion-button color="secondary" expand="block" (click)='goToMoreDetails(article)'>More details </ion-button>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <!-- spinner before getting the articles -->
+        <ion-spinner name="lines" class="spinner" *ngIf="spinnerChecker" color='secondary'></ion-spinner>
+    </ion-grid>
 </ion-content>
